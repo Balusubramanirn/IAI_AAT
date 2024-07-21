@@ -1,0 +1,48 @@
+def nextMove(player, board):
+    for r in range(3):
+        for c in range(3):
+            if board[r][c] == '_':
+                board[r][c] = player
+                if checkWin(player, board):
+                    print(r, c)
+                    return
+                board[r][c] = '_'
+    opponent = 'O' if player == 'X' else 'X'
+    for r in range(3):
+        for c in range(3):
+            if board[r][c] == '_':
+                board[r][c] = opponent
+                if checkWin(opponent, board):
+                    print(r, c)
+                    board[r][c] = player  
+                    return
+                board[r][c] = '_'
+
+    for r in range(3):
+        for c in range(3):
+            if board[r][c] == '_':
+                print(r, c)
+                return
+
+def checkWin(player, board):
+
+    for r in range(3):
+        if board[r][0] == board[r][1] == board[r][2] == player:
+            return True
+
+    for c in range(3):
+        if board[0][c] == board[1][c] == board[2][c] == player:
+            return True
+
+    if board[0][0] == board[1][1] == board[2][2] == player:
+        return True
+    if board[0][2] == board[1][1] == board[2][0] == player:
+        return True
+    
+    return False
+
+player = input().strip()  
+board = []
+for _ in range(3):
+    board.append(list(input().strip()))  
+nextMove(player, board)
